@@ -77,7 +77,25 @@ export default {
         }
       });
     }*/
-
+      Submit() {
+          const formData = JSON.stringify(this.formData);
+          axios({
+              method:"post",
+              url:"http://localhost:8082/shopOnline/userLogin",
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              data:formData
+          }).then((res)=>{
+              if(res){
+                  this.$Message.success("注册成功");
+                  this.$router.push({ path: '/SignUp/signUpDone' });
+                  console.log(res);
+              }else{
+                  this.$Message.error("用户名已存在,注册失败");
+              }
+          });
+      }
   }
 };
 </script>
