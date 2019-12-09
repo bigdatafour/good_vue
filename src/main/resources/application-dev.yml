@@ -1,0 +1,33 @@
+server:
+  port: 8081
+
+
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://192.168.129.128:3306/work?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+    thymeleaf:
+    prefix: classpath:/templates/
+
+
+
+mybatis:
+  mapper-locations: classpath:mapping/*Mapping.xml
+  type-aliases-package: com.team.pojo
+
+
+#showSql
+logging:
+  level:
+    com:
+      hc:
+        mapper : debug
+
+
+  #分页插件
+  pagehelper.helper-dialect=mysql:
+  pagehelper.params=count=countSql:
+  pagehelper.reasonable=true:
+  pagehelper.support-methods-arguments=true:
