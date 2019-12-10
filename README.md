@@ -1,4 +1,5 @@
 # good_vue
+<<<<<<< HEAD
 
 > A Vue.js project
 
@@ -19,3 +20,6 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+=======
+good_vue
+>>>>>>> a524b748d844369ef00a6614753085e9d9b3e432
