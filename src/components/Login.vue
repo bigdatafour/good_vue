@@ -11,19 +11,19 @@
             <p>欢迎登录</p>
           </div>
           <div class="form-box">
-            <Form ref="formDate" :model="formDate" :rules="ruleInline">
-              <FormItem prop="username">
-                  <i-input type="text" v-model="formDate.username" clearable size="large" placeholder="用户名">
+            <Form ref="formData" :model="formData" :rules="ruleInline">
+              <FormItem prop="user_name">
+                  <i-input type="text" v-model="formData.user_name" clearable size="large" placeholder="用户名">
                       <Icon type="person" slot="prepend"></Icon>
                   </i-input>
               </FormItem>
-              <FormItem prop="password">
-                  <i-input type="password" v-model="formDate.password" clearable size="large" placeholder="密码">
+              <FormItem prop="user_password">
+                  <i-input type="password" v-model="formData.user_password" clearable size="large" placeholder="密码">
                       <Icon type="ios-locked-outline" slot="prepend"> </Icon>
                   </i-input>
               </FormItem>
               <FormItem>
-                  <Button type="error" size="large" @click="Submit('formDate')" long>登录</Button>
+                  <Button type="error" size="large" @click="Submit('formData')" long>登录</Button>
               </FormItem>
           </Form>
           </div>
@@ -41,15 +41,15 @@ export default {
   name: 'Login',
   data () {
     return {
-      formDate: {
-        username: '',
-        password: ''
+      formData: {
+        user_name: '',
+        user_password: ''
       },
       ruleInline: {
-        username: [
+        user_name: [
           { required: true, message: '请输入用户名', trigger: 'blur' }
         ],
-        password: [
+        user_password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
           { type: 'string', min: 6, message: '密码不能少于6位', trigger: 'blur' }
         ]
@@ -61,10 +61,10 @@ export default {
     ...mapActions(['login']),
     handleSubmit (name) {
       const father = this;
-      console.log(this.formDate.username);
+      console.log(this.formData.username);
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.login(father.formDate).then(result => {
+          this.login(father.formData).then(result => {
             if (result) {
               this.$Message.success('登录成功');
               father.$router.push('/');
@@ -78,21 +78,25 @@ export default {
       });
     }*/
       Submit() {
-          const formData = JSON.stringify(this.formData);
+          const userData = JSON.stringify(this.formData);
           axios({
               method:"post",
               url:"http://localhost:8082/shopOnline/userLogin",
               headers: {
                   'Content-Type': 'application/json'
               },
-              data:formData
+              data:userData
           }).then((res)=>{
-              if(res){
-                  this.$Message.success("注册成功");
-                  this.$router.push({ path: '/SignUp/signUpDone' });
+              if(res.data == "success"){
+                  this.$Message.success("登录成功");
+                  this.$router.push({ path: '/' });
                   console.log(res);
+              }else if(res.data == "userNone"){
+                      this.$Message.error("用户名不存在");
+              }else if(res.data == "pwdError"){
+                  this.$Message.error("密码错误")
               }else{
-                  this.$Message.error("用户名已存在,注册失败");
+                  this.$Message.error("程序异常！")
               }
           });
       }

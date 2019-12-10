@@ -1,13 +1,13 @@
 <template>
   <div class="info-form">
     <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80" >
-      <FormItem label="用户名" prop="name">
+      <FormItem label="用户名" prop="user_name">
         <i-input v-model="formValidate.user_name" clearable size="large" placeholder="请输入你的姓名"></i-input>
       </FormItem>
-      <FormItem label="邮箱" prop="mail">
+      <FormItem label="邮箱" prop="user_mail">
         <i-input v-model="formValidate.user_mail" clearable size="large" placeholder="请输入你的邮箱"></i-input>
       </FormItem>
-      <FormItem label="密码" prop="password">
+      <FormItem label="密码" prop="user_password">
         <i-input type="password" v-model="formValidate.user_password" clearable size="large" placeholder="请输入你的密码"></i-input>
       </FormItem>
       <FormItem label="确认密码" prop="repassword">
@@ -85,6 +85,7 @@
                 });
             }*/
             Submit() {
+
                 const formData = JSON.stringify(this.formValidate);
                 axios({
                     method:"post",
@@ -94,7 +95,7 @@
                     },
                     data:formData
                 }).then((res)=>{
-                    if(res){
+                    if(res.data==true){
                         this.$Message.success("注册成功");
                         this.$router.push({ path: '/SignUp/signUpDone' });
                         console.log(res);
