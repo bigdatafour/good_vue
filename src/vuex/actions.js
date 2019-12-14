@@ -719,7 +719,7 @@ export const addSignUpUser = ({ commit }, data) => {
 };
 
 // 用户登录
-export const login = ({ commit }, data) => {
+/*export const login = ({ commit }, data) => {
   return new Promise((resolve, reject) => {
     if (data.username === 'Gavin' && data.password === '123456') {
       localStorage.setItem('loginInfo', JSON.stringify(data));
@@ -743,7 +743,7 @@ export const login = ({ commit }, data) => {
       resolve(false);
     }
   });
-};
+};*/
 
 // 退出登陆
 export const signOut = ({ commit }) => {

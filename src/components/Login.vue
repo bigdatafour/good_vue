@@ -36,7 +36,7 @@
 <script>
 import store from '@/vuex/store';
 import { mapMutations, mapActions } from 'vuex';
-import axios from 'axios'
+import axios from 'axios';
 export default {
   name: 'Login',
   data () {
@@ -89,6 +89,7 @@ export default {
           }).then((res)=>{
               if(res.data == "success"){
                   this.$Message.success("登录成功");
+                  this.sessionStorage.setItem("user_name",this.formData.user_name)
                   this.$router.push({ path: '/' });
                   console.log(res);
               }else if(res.data == "userNone"){

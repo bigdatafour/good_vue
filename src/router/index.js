@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Index from '@/components/Index';
+import HomeNav from "../components/nav/HomeNav";
 const Login = resolve => require(['@/components/Login'], resolve);
 const SignUp = resolve => require(['@/components/SignUp'], resolve);
 const CheckPhone = resolve => require(['@/components/signUp/CheckPhone'], resolve);
@@ -132,6 +133,11 @@ export default new Router({
       path: '/merchant',
       name: 'Merchant',
       component: Merchant
+    },
+    {
+      path: '/homeNav',
+      name: 'HomeNav',
+      component: HomeNav
     }
   ]
 });

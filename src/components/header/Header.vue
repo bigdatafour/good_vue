@@ -21,7 +21,7 @@
         <li class="first" v-show="!userInfo.username">
           你好，请<router-link to="/login">登录 <Icon type="person"></Icon></router-link> |<span class="text-color-red"><router-link to="/SignUp">免费注册 <Icon type="person-add"></Icon></router-link></span>
         </li>
-        <li v-show="!!userInfo.username">
+        <li v-show="!userInfo.username">
           <Dropdown>
             <p class="username-p">
               <Avatar class="person-icon" icon="person" size="small" /> <span class="username">{{userInfo.username}} </span>
@@ -98,6 +98,7 @@
 <script>
 import store from '@/vuex/store';
 import { mapState, mapActions } from 'vuex';
+import axios from 'axios';
 export default {
   name: 'M-Header',
   created () {
@@ -105,7 +106,7 @@ export default {
   },
   data () {
     return {
-      city: '珠海',
+      city: '请选择所在城市',
       cityArr: [
         ['北京', '上海', '天津', '重庆', '广州'],
         ['深圳', '河南', '辽宁', '吉林', '江苏'],
@@ -119,8 +120,10 @@ export default {
   },
   methods: {
     ...mapActions(['signOut', 'isLogin']),
-    changeCity (city) {
-      this.city = city;
+    changeCity (item) {
+        // this.$router.push({ path: '/homeNav', query: { cityName: this.city } })
+            this.city = item;
+            sessionStorage.setItem("cityName",this.city)
     },
     goToPay () {
       this.$router.push('/order');
@@ -129,8 +132,23 @@ export default {
       this.$router.push('/home');
     },
     signOutFun () {
-      this.signOut();
-      this.$router.push('/');
+        axios({
+            method:"post",
+            url:"http://localhost:8082/shopOnline/signOut",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data:{"user_login_status":1}
+        }).then((res)=>{
+            if(res.data != ''){
+                this.$router.push('/Login');
+                this.$Message.success(res.data +"期待您的再次光临！");
+                sessionStorage.removeItem("cityName")
+                console.log(res);
+            }else{
+                this.$Message.error("当前无用户登录！");
+            }
+        });
     }
   },
   store

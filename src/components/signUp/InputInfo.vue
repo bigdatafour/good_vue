@@ -38,6 +38,7 @@
                 formValidate: {
                     user_name: '',
                     user_password: '',
+                    repassword:'',
                     user_phone: this.$route.query.phone,
                     user_address:'',
                     user_mail: '',
@@ -85,24 +86,27 @@
                 });
             }*/
             Submit() {
-
-                const formData = JSON.stringify(this.formValidate);
-                axios({
-                    method:"post",
-                    url:"http://localhost:8082/shopOnline/registerUser",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    data:formData
-                }).then((res)=>{
-                    if(res.data==true){
-                        this.$Message.success("注册成功");
-                        this.$router.push({ path: '/SignUp/signUpDone' });
-                        console.log(res);
-                    }else{
-                        this.$Message.error("用户名已存在,注册失败");
-                    }
-                });
+                if(this.formValidate.user_name !== '' & this.formValidate.user_password !== '' & this.formValidate.user_mail !== '' & this.formValidate.repassword !== '') {
+                    const formData = JSON.stringify(this.formValidate);
+                    axios({
+                        method:"post",
+                        url:"http://localhost:8082/shopOnline/registerUser",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data:formData
+                    }).then((res)=>{
+                        if(res.data==true){
+                            this.$Message.success("注册成功");
+                            this.$router.push({ path: '/SignUp/signUpDone' });
+                            console.log(res);
+                        }else{
+                            this.$Message.error("用户名已存在,注册失败");
+                        }
+                    });
+                }else{
+                    this.$Message.error("请补充您的注册基本信息");
+                }
             }
         }
     };

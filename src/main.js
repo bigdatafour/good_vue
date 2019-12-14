@@ -11,6 +11,7 @@ import VueAxios from 'vue-axios'
 Vue.use(iView);
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios)
+axios.defaults.withCredentials = true;
 
 
 router.beforeEach((to, from, next) => {
