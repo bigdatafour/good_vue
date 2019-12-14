@@ -89,7 +89,7 @@ export default {
           }).then((res)=>{
               if(res.data == "success"){
                   this.$Message.success("登录成功");
-                  this.sessionStorage.setItem("user_name",this.formData.user_name)
+                  sessionStorage.setItem("user_name",this.formData.user_name)
                   this.$router.push({ path: '/' });
                   console.log(res);
               }else if(res.data == "userNone"){

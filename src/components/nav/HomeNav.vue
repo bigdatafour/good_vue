@@ -161,7 +161,7 @@
                     '子弹',
                     '氢弹',
                     '张全蛋',
-                    '生鲜',
+                    '口缸',
                     '全球购',
                     '金融'
                 ],
@@ -289,7 +289,7 @@
                 });
             },
             cityAdvertisement (item) {
-                if(sessionStorage.getItem("cityName") != null) {
+                if(sessionStorage.getItem("user_name") != null & sessionStorage.getItem("cityName") != null) {
                     axios({
                         method: "post",
                         url: "http://localhost:8082/shopOnline/cityAdvertisement",
@@ -301,6 +301,8 @@
                         console.log(res);
                         this.$router.push("/goodsList")
                     });
+                }else if(sessionStorage.getItem("user_name") == null){
+                    alert("你还没有登陆")
                 }else{
                     alert("请选择城市")
                 }

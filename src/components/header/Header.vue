@@ -143,6 +143,7 @@ export default {
             if(res.data != ''){
                 this.$router.push('/Login');
                 this.$Message.success(res.data +"期待您的再次光临！");
+                sessionStorage.removeItem("user_name")
                 sessionStorage.removeItem("cityName")
                 console.log(res);
             }else{
